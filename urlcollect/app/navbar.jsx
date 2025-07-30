@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import Link from "next/link";
 
 export default function NavBar() {
     return (
@@ -7,7 +8,8 @@ export default function NavBar() {
             <div className="w-full bg-accent p-4">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-row justify-between items-center">
                     <div className="flex flex-row items-center justify-start gap-4">
-                        <p className="text-lg font-semibold">URL Store</p>
+                        <Link className="text-lg font-semibold hover:underline" href={"/"}>URL Store</Link>
+                        <Link className="text-sm text-muted-foreground hover:underline" href={"/urls"}>Your URLs</Link>
                     </div>
                     <div className="flex flex-row items-center justify-end gap-4">
                         <ClerkLoaded>
