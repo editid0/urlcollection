@@ -9,47 +9,13 @@ export default async function UrlsPage() {
     if (!user) {
         return null;
     }
-    // const data = await pool.query(`
-    //     SELECT * FROM collections WHERE user_id = $1
-    // `, [user.id]);
-    const data = [
-        {
-            id: 1,
-            name: "name",
-            created_at: moment().subtract(1, 'days'),
-            updated_at: moment(),
-            urls: ['73ad3345-d148-4657-9f84-7851766016ae', 'bcea45bf-e064-48c9-aba1-62660ac5dc71'],
-            user_id: user.id,
-            description: "This is a sample collection",
-        },
-        {
-            id: 2,
-            name: "name",
-            created_at: moment().subtract(1, 'days'),
-            updated_at: moment(),
-            urls: ['73ad3345-d148-4657-9f84-7851766016ae', 'bcea45bf-e064-48c9-aba1-62660ac5dc71'],
-            user_id: user.id,
-            description: "This is a sample collection",
-        },
-        {
-            id: 3,
-            name: "name",
-            created_at: moment().subtract(1, 'days'),
-            updated_at: moment(),
-            urls: ['73ad3345-d148-4657-9f84-7851766016ae', 'bcea45bf-e064-48c9-aba1-62660ac5dc71'],
-            user_id: user.id,
-            description: "This is a sample collection",
-        },
-        {
-            id: 4,
-            name: "name",
-            created_at: moment().subtract(1, 'days'),
-            updated_at: moment(),
-            urls: ['73ad3345-d148-4657-9f84-7851766016ae', 'bcea45bf-e064-48c9-aba1-62660ac5dc71'],
-            user_id: user.id,
-            description: "This is a sample collection",
-        },
-    ]
+    const raw_data = await pool.query(`
+        SELECT * FROM collections WHERE user_id = $1
+    `, [user.id]);
+    if (!raw_data || !raw_data.rows) {
+        return null;
+    }
+    const data = raw_data.rows;
     return (
         <>
             <div className="w-full mt-4 px-2 max-w-[30cm] mx-auto">
