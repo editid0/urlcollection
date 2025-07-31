@@ -9,7 +9,7 @@ export default function NavBar() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-row justify-between items-center">
                     <div className="flex flex-row items-center justify-start gap-4">
                         <Link className="text-lg font-semibold hover:underline" href={"/"}>URL Store</Link>
-                        <Link className="text-sm text-muted-foreground hover:underline" href={"/urls"}>Your URLs</Link>
+                        <Link className="text-md text-muted-foreground hover:underline" href={"/collections"}>Your collections</Link>
                     </div>
                     <div className="flex flex-row items-center justify-end gap-4">
                         <ClerkLoaded>

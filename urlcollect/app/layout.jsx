@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-	title: "URL Storage",
+	title: "URL Store",
 	description: "Store and manage your URLs efficiently",
 };
 
