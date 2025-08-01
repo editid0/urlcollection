@@ -5,8 +5,10 @@ export default async function AddURLToCollection({ params }) {
     const user = await currentUser();
 
     return (
-        <div>
-            <h1>Add a new URL to Collection {id}</h1>
+        <div className="w-full mt-4 px-2 max-w-[30cm] mx-auto">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center border-2 rounded-xl border-muted py-4 w-fit">
+                <h1 className="text-4xl font-bold">Add a new URL</h1>
+            </div>
         </div>
     );
 }
