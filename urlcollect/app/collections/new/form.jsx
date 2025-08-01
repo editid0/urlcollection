@@ -32,6 +32,7 @@ export default function NewCollectionForm() {
                     setError("");
                     setName("");
                     setDescription("");
+                    window.location.href = "/collections";
                 } else {
                     return response.text().then(text => {
                         setError(text);

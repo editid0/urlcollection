@@ -3,6 +3,15 @@ import pool from "@/lib/db"
 import { currentUser } from "@clerk/nextjs/server";
 import Link from "next/link";
 import moment from "moment-timezone";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import DeleteButton from "./DeleteButton";
 
 export default async function UrlsPage() {
     const user = await currentUser();
@@ -39,19 +48,24 @@ export default async function UrlsPage() {
                                 {!collection.isNew && (
                                     <>
                                         <p className="text-sm text-muted-foreground">
-                                            Created at: {moment(collection.created_at).format('MMMM Do YYYY, h:mm:ss a')}
+                                            Created: {moment(collection.created_at).fromNow()}
                                         </p>
                                         <p className="text-sm text-muted-foreground">
-                                            Updated at: {moment.utc(collection.updated_at).tz('Europe/London').format('MMMM Do YYYY, h:mm:ss a')}
+                                            Updated: {moment(collection.updated_at).fromNow()}
                                         </p>
                                     </>
                                 )}
                             </div>
-                            <Button variant={"outline"} asChild className="mt-2">
-                                <Link href={collection.isNew ? `/collections/new` : `/collections/${collection.id}`}>
-                                    {collection.isNew ? "Create Collection" : "View Collection"}
-                                </Link>
-                            </Button>
+                            <div className="max-w-full flex flex-row items-center mt-2 gap-1">
+                                <Button variant={"outline"} asChild className={collection.isNew ? "w-full" : "w-[90%]"}>
+                                    <Link href={collection.isNew ? `/collections/new` : `/collections/${collection.id}`}>
+                                        {collection.isNew ? "Create Collection" : "View Collection"}
+                                    </Link>
+                                </Button>
+                                {!collection.isNew && (
+                                    <DeleteButton collectionId={collection.id} />
+                                )}
+                            </div>
                         </div>
                     ))}
                 </div>
