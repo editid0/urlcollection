@@ -1,1 +1,1 @@
-bun run serve
+bun run start
