@@ -48,6 +48,15 @@ export default async function DemoAccount() {
         <div className="demo-card">
             <p><strong>Username:</strong> <span className="font-mono text-muted-foreground">{username}</span></p>
             <p><strong>Password:</strong> <span className="font-mono text-muted-foreground">{password}</span></p>
+            <div className="text-muted-foreground mt-2 text-left border-2 p-4 rounded-lg">
+                <p className="text-lg text-foreground font-semibold">Notices:</p>
+                <p>Please note that these accounts are shared, so other users may be logged in with the same credentials.</p>
+                <p>When you sign in, anyone signed into the same account can see your IP, so please make your own account if you need privacy.</p>
+                <p>Do not use these accounts for any sensitive activities.</p>
+                <p>These accounts may occasionally be reset or deleted, so please use them responsibly.</p>
+                <p>Please sign out when you are done.</p>
+                <p>Please do not change the username or password.</p>
+            </div>
         </div>
     );
 }
