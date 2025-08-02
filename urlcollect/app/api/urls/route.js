@@ -2,7 +2,7 @@ import pool from "@/lib/db";
 import { currentUser } from "@clerk/nextjs/server";
 import { isPrivateIp, resolveHostname } from "../validate/route";
 
-async function validateUrl(url) {
+export async function validateUrl(url) {
     if (!url) {
         return false;
     }
@@ -63,4 +63,28 @@ export async function POST(request) {
     `, [collectionId, nurl, title, description]);
 
     return new Response("URL added successfully", { status: 201 });
+}
+
+export async function DELETE(request) {
+    const res = await request.json();
+    const { id } = res;
+    const user = await currentUser();
+
+    if (!user) {
+        return new Response("Unauthorized", { status: 401 });
+    }
+
+    if (!id) {
+        return new Response("ID is required", { status: 400 });
+    }
+
+    const urlData = await pool.query(`SELECT * FROM urls WHERE id = $1 AND collection_id IN (SELECT id FROM collections WHERE user_id = $2)`, [id, user.id]);
+
+    if (urlData.rowCount === 0) {
+        return new Response("URL not found", { status: 404 });
+    }
+
+    await pool.query(`DELETE FROM urls WHERE id = $1`, [id]);
+
+    return new Response("URL deleted successfully", { status: 200 });
 }

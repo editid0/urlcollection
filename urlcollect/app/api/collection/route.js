@@ -11,7 +11,7 @@ export async function POST(request) {
     }
 
     await pool.query(`
-        INSERT INTO collections (name, created_at, updated_at, urls, user_id, description) VALUES ($1, NOW(), NOW(), '{}', $2, $3)
+        INSERT INTO collections (name, created_at, updated_at, user_id, description) VALUES ($1, NOW(), NOW(), $2, $3)
     `, [name, user.id, description]);
 
     if (!name || !description) {
