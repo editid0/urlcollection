@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import pool from "@/lib/db";
 import { currentUser } from "@clerk/nextjs/server";
+import { Plus } from "lucide-react";
 import Link from "next/link";
 
 export default async function ViewCollectionPage({ params }) {
@@ -36,16 +37,36 @@ export default async function ViewCollectionPage({ params }) {
                 <div>
                     <h2 className="text-2xl font-semibold mt-4">URLs in this collection</h2>
                     <div className="mt-4 flex flex-row flex-wrap gap-4">
-                        {urls.length > 0 ? (
+                        {urls.length > 0 && (
+                            <Link href={`/collections/${id}/add`} className="border p-2 rounded-lg mb-4 w-1/3 flex flex-col items-center justify-center hover:bg-muted transition-colors text-muted-foreground">
+                                <Plus size={32} />
+                                <span className="mt-2">Add a new URL</span>
+                            </Link>
+                        )}
+                        {urls.length > 0 && (
                             urls.map((url) => (
-                                <div key={url.id} className="border p-4 rounded-lg mb-4">
-                                    <a href={url.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                                <div key={url.id} className="border p-4 rounded-lg mb-4 w-1/3 flex flex-col">
+                                    <Link href={url.url} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline truncate">
                                         {url.title || url.url}
-                                    </a>
-                                    <p className="text-sm text-muted-foreground">{url.description}</p>
+                                    </Link>
+                                    <p className="text-sm text-muted-foreground truncate">{url.description}</p>
+                                    <div className="flex flex-row justify-between items-center mt-2">
+                                        <Button variant="secondary" className="cursor-pointer">
+                                            View URL
+                                        </Button>
+                                        <Button variant="outline" className="" asChild>
+                                            <Link href={`/collections/${id}/edit/${url.id}`}>
+                                                Edit URL
+                                            </Link>
+                                        </Button>
+                                        <Button variant="destructive" className="cursor-pointer" asChild>
+                                            <p>Delete URL</p>
+                                        </Button>
+                                    </div>
                                 </div>
                             ))
-                        ) : (
+                        )}
+                        {urls.length === 0 && (
                             <div>
                                 <p className="text-muted-foreground">No URLs found in this collection.</p>
                                 <Button variant="outline" asChild className="mt-2">

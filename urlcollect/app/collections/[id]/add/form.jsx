@@ -9,7 +9,7 @@ import { useDebounce } from "@uidotdev/usehooks";
 import { useEffect } from "react";
 import { useState } from "react";
 
-export default function AddURLForm() {
+export default function AddURLForm({ collectionId }) {
     const [url_, setUrl] = useState("");
     const url = useDebounce(url_, 500);
     const [url_valid, setUrlValid] = useState(null);
@@ -60,6 +60,43 @@ export default function AddURLForm() {
         }
     }, [autofillMeta]);
 
+    function handleSubmit(event) {
+        event.preventDefault();
+        if (!url || !title) {
+            alert("Please fill in URL and title.");
+            return;
+        }
+        const formData = {
+            url,
+            title,
+            description,
+            collectionId,
+        };
+        fetch('/api/urls', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+            .then(async response => {
+                if (response.ok) {
+                    setUrl("");
+                    setTitle("");
+                    setDescription("");
+                    setUrlValid(null);
+                    window.location.href = `/collections/${collectionId}`;
+                } else {
+                    const text = await response.text();
+                    alert(`Error: ${text}`);
+                }
+            })
+            .catch(error => {
+                console.error("Error adding URL:", error);
+                alert("An error occurred while adding the URL.");
+            });
+    };
+
     return (
         <>
             <div className="max-w-sm mx-auto mt-6">
@@ -79,12 +116,7 @@ export default function AddURLForm() {
                     Description
                 </Label>
                 <Textarea placeholder="Description of the URL" value={description} onChange={(e) => setDescription(e.target.value)} className="border-2 border-muted rounded-md p-2 mt-1 w-full" disabled={autofillMeta} />
-                <Button className="mt-4 cursor-pointer" variant={"outline"} onClick={() => {
-                    if (!url || !title) {
-                        alert("Please fill in url and title.");
-                        return;
-                    }
-                }}>
+                <Button className="mt-4 cursor-pointer" variant={"outline"} onClick={handleSubmit}>
                     Add URL
                 </Button>
             </div>
