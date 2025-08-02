@@ -12,6 +12,7 @@ export default function NavBar() {
                     <div className="flex flex-row items-center justify-start gap-4">
                         <Link className="text-lg font-semibold hover:underline" href={"/"}>URL Store</Link>
                         <Link className="text-md text-muted-foreground hover:underline" href={"/collections"}>Your collections</Link>
+                        <Link className="text-md text-muted-foreground hover:underline" href={"https://editid.fillout.com/urlstore"} target="_blank">Feedback</Link>
                     </div>
                     <div className="flex flex-row items-center justify-end gap-4">
                         <ClerkLoaded>
