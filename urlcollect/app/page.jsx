@@ -26,9 +26,8 @@ const why = [
 		description: "Access your links from any device, anywhere in the world.",
 	},
 	{
-		title: "Share with others (Soon)",
+		title: "Share with others",
 		description: "Share your collections with others, or keep them private.",
-		border: "border-amber-500/30"
 	},
 ]
 
