@@ -19,7 +19,7 @@ export default async function UrlsPage() {
         return null;
     }
     const raw_data = await pool.query(`
-        SELECT * FROM collections WHERE user_id = $1
+        SELECT * FROM collections WHERE user_id = $1 ORDER BY updated_at DESC
     `, [user.id]);
     if (!raw_data || !raw_data.rows) {
         return null;
