@@ -57,13 +57,15 @@ export default async function UrlsPage() {
                                 )}
                             </div>
                             <div className="max-w-full flex flex-row items-center mt-2 gap-1">
-                                <Button variant={"outline"} asChild className={collection.isNew ? "w-full" : "w-[90%]"}>
+                                <Button variant={"outline"} asChild className={collection.isNew ? "w-full" : "w-7/8"}>
                                     <Link href={collection.isNew ? `/collections/new` : `/collections/${collection.id}`}>
                                         {collection.isNew ? "Create Collection" : "View Collection"}
                                     </Link>
                                 </Button>
                                 {!collection.isNew && (
-                                    <DeleteButton collectionId={collection.id} />
+                                    <div className="">
+                                        <DeleteButton collectionId={collection.id} />
+                                    </div>
                                 )}
                             </div>
                         </div>

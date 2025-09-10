@@ -11,9 +11,8 @@ const features = [
 		description: "Organise your links for easy access.",
 	},
 	{
-		title: "Search Links (Soon)",
+		title: "Search Links",
 		description: "Search through your links to find what you need quickly.",
-		border: "border-amber-500/30"
 	}
 ];
 

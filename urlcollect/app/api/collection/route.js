@@ -9,14 +9,14 @@ export async function POST(request) {
     if (!user) {
         return new Response("Unauthorized", { status: 401 });
     }
+    if (!name) {
+        return new Response("Name is required", { status: 400 });
+    }
 
     await pool.query(`
         INSERT INTO collections (name, created_at, updated_at, user_id, description) VALUES ($1, NOW(), NOW(), $2, $3)
     `, [name, user.id, description]);
 
-    if (!name || !description) {
-        return new Response("Name and description are required", { status: 400 });
-    }
 
     return new Response("Collection created successfully", { status: 201 });
 }
